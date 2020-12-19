@@ -5,7 +5,10 @@ Hanami::Model.migration do
 
       column :title, String, size: 128, null: false
       column :content, String, text: true, null: false
-      column :user_ip, String, null: false, size: 39
+
+      column :rate_avg, Numeric, null: false, default: 0
+      column :rage_count, Integer, null: false, default: 0
+      column :ip, String, null: false, size: 39
 
       foreign_key :user_id, :users
 

@@ -3,8 +3,10 @@ require 'hanami/setup'
 require 'hanami/model'
 require_relative '../lib/ecomcharge_test'
 require_relative '../apps/web/application'
+require "hanami/middleware/body_parser"
 
 Hanami.configure do
+  middleware.use Hanami::Middleware::BodyParser, :json
   mount Web::Application, at: '/'
 
   model do
