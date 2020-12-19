@@ -4,6 +4,6 @@ class UserRepository < Hanami::Repository
   end
 
   def find_or_create_by_login login
-    users.find_or_create_by login: login
+    users.where(login: login).first || create(login: login)
   end
 end

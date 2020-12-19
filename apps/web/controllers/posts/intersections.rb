@@ -1,14 +1,14 @@
 module Web
   module Controllers
     module Posts
-      class DoubledLoginByIp
+      class Intersections
         include Web::Action
 
         accept :json
 
         def call(params)
-          result = PostRepository.intersections
-          status 201, result.to_json
+          result = PostRepository.new.intersections
+          status 200, result.to_json
         end
       end
     end

@@ -14,9 +14,13 @@ module Web
 
         def call(params)
           if params.valid?
-            user = UserRepository.new.find_or_create_by_login params[:login]
-            post = PostRepository.create(title: params[:title], content: params[:content], ip: params[:ip], user: user)
-            status 200, {title: post.title, content: post.content, ip: ip.ip, user: { login: user.login }}
+            post = PostRepository.new.create_with_user(
+              title: params[:title], 
+              content: params[:content], 
+              ip: params[:ip], 
+              login: params[:login]
+            )
+            status 200, {title: post.title, content: post.content, ip: post.ip, user: { login: post.user.login }}
           else
             status 422, params.error_messages.join("\n")
           end

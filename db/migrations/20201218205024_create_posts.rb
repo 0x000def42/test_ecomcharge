@@ -6,11 +6,11 @@ Hanami::Model.migration do
       column :title, String, size: 128, null: false
       column :content, String, text: true, null: false
 
-      column :rate_avg, Numeric, null: false, default: 0
+      column :rate_avg, BigDecimal, null: false, default: 0
       column :rage_count, Integer, null: false, default: 0
       column :ip, String, null: false, size: 39
 
-      foreign_key :user_id, :users
+      foreign_key :user_id, :users, type: Integer, on_delete: :cascade, null: false
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false

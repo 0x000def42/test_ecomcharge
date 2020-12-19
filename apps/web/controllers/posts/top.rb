@@ -19,7 +19,7 @@ module Web
               content: post.content, 
               ip: post.ip, 
               autor: {
-                login: post.autor.login
+                login: post.user.login
               }
             } 
           end

@@ -7,7 +7,7 @@ module Web
         accept :json
 
         params do
-          required(:post_id).filled(:str?)
+          required(:post_id).filled(:int?)
           required(:value).filled(:str?)
         end
 
@@ -16,10 +16,10 @@ module Web
           rate_repository = RateRepository.new
 
           post = post_repository.find params[:post_id]
-          rate_repository.new.create post: post, value: params[:value]
-          post.reload!
+          rate_repository.create post_id: post.id, value: params[:value]
+          post = post_repository.find params[:post_id]
 
-          status 201, {rate_avg: post.rage_avg}.to_json
+          status 200, {rate_avg: post.rate_avg}.to_json
         end
       end
     end
