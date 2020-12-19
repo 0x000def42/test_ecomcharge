@@ -23,7 +23,6 @@ module Web
               }
             } 
           end
-          .to_json 
         end
       end
     end

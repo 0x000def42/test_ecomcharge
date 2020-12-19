@@ -8,7 +8,7 @@ module Web
 
         def call(params)
           result = PostRepository.new.intersections
-          status 200, result.to_json
+          status 200, result
         end
       end
     end

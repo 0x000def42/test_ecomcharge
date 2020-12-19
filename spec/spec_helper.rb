@@ -24,6 +24,16 @@ Hanami::Utils.require!("#{__dir__}/support")
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  DatabaseCleaner[:sequel].strategy = :truncation
+
+  config.before(:each) do
+    DatabaseCleaner[:sequel].start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner[:sequel].clean
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

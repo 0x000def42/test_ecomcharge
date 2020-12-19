@@ -23,25 +23,25 @@ class PostRepository < Hanami::Repository
   def intersections
     posts.read(
       <<-SQL
-        select p.ip, u.login
+        select DISTINCT p.ip, u.login
         from posts as p
         join users as u
         on u.id = p.user_id
-        where EXISTS (
+        where ip IN (
           select ip
           from posts
           group by ip
           having count(distinct user_id) > 1
         )
       SQL
-      ).map {|e| e}
-      .inject({}) { |acc, post|
-        ip = post[:ip]
-        unless acc[ip]
-          acc[ip] = []
-        end
-        acc[ip] << post[:login]
-        acc
+    ).map {|e| e}
+    .inject({}) { |acc, post|
+      ip = post[:ip]
+      unless acc[ip]
+        acc[ip] = []
+      end
+      acc[ip] << post[:login]
+      acc
     }.map { |key, value| {ip: key, logins: value}}
   end
 end
