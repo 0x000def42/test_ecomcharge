@@ -7,7 +7,8 @@ Hanami::Model.migration do
       column :content, String, text: true, null: false
 
       column :rate_avg, BigDecimal, null: false, default: 0
-      column :rage_count, Integer, null: false, default: 0
+      column :rate_count, Integer, null: false, default: 0
+      column :rate_sum, Integer, null: false, default: 0
       column :ip, String, null: false, size: 39
 
       foreign_key :user_id, :users, type: Integer, on_delete: :cascade, null: false
