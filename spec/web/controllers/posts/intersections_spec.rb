@@ -16,7 +16,7 @@ RSpec.describe Web::Controllers::Posts::Intersections do
   let(:result) do
     [
       {:ip=>"255.255.255.0", :logins=>["login1", "login2"]},
-      {:ip=>"0.255.255.0", :logins=>["login2", "login1"]}
+      {:ip=>"0.255.255.0", :logins=>["login1", "login2"]}
     ]
   end
 

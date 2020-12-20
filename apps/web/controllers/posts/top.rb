@@ -12,17 +12,20 @@ module Web
 
         def call(params)
           result = PostRepository.new.top params[:limit]
-          status 200, result.map do |post| 
+          res = result.map do |post|
             {
               id: post.id, 
               title: post.title, 
               content: post.content, 
-              ip: post.ip, 
+              ip: post.ip,
+              rate_avg: post.rate_avg,
               autor: {
                 login: post.user.login
               }
             } 
           end
+          status 200, res
+
         end
       end
     end

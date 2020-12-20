@@ -5,12 +5,11 @@ class PostRepository < Hanami::Repository
   end
 
   def top number
-    posts.order(:rate_avg).limit(number)
+    aggregate(:user).limit(number).order { rate_avg.desc }.map_to(Post).to_a
   end
 
   def create_with_user params
     user = UserRepository.new.find_or_create_by_login(params[:login])
-    aggregate(:user).where(id: user.id).map_to(Post).one
     post_id = create(
       title: params[:title], 
       content: params[:content], 
