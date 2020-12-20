@@ -1,7 +1,7 @@
 module Web
   module Controllers
-    module Posts
-      class Rate
+    module Rates
+      class Create
         include Web::Action
 
         accept :json

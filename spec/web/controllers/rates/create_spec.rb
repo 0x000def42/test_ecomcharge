@@ -1,7 +1,7 @@
-require_relative '../../../../apps/web/controllers/posts/rate'
+require_relative '../../../../apps/web/controllers/rates/create'
 
-RSpec.describe Web::Controllers::Posts::Rate do
-  let(:action) { Web::Controllers::Posts::Rate.new }
+RSpec.describe Web::Controllers::Rates::Create do
+  let(:action) { Web::Controllers::Rates::Create.new }
   let(:params) { 
     {
       value: 5, 

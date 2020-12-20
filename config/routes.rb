@@ -1,5 +1,5 @@
 get '/posts/top/:limit', to: 'posts#top'
 post '/posts', to: 'posts#create'
-post '/posts/:id/rates', to: 'posts#rate'
+post '/rates', to: 'rates#create'
 
 get '/posts/intersections', to: 'posts#intersections'
