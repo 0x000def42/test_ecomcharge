@@ -22,6 +22,10 @@ Hanami.configure do
     #
     adapter :sql, ENV.fetch('DATABASE_URL')
 
+    gateway do |g|
+      g.connection.sql_log_level = :debug
+    end
+
     ##
     # Migrations
     #
@@ -31,7 +35,7 @@ Hanami.configure do
 
   environment :development do
     # See: https://guides.hanamirb.org/projects/logging
-    logger level: :debug
+    logger level: :info
   end
 
   environment :production do

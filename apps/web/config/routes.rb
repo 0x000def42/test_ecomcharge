@@ -1,5 +1,5 @@
-# Configure your routes here
-# See: https://guides.hanamirb.org/routing/overview
-#
-# Example:
-# get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
+get '/posts/top/:limit', to: 'posts#top'
+post '/posts', to: 'posts#create'
+post '/rates', to: 'rates#create'
+
+get '/posts/intersections', to: 'posts#intersections'

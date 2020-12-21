@@ -24,7 +24,8 @@ module Web
               }
             } 
           end
-          status 200, res
+          # status 200, res
+          status 200, res.to_json
 
         end
       end

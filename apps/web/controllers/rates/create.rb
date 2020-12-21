@@ -19,7 +19,7 @@ module Web
           rate_repository.create post_id: post.id, value: params[:value]
           post = post_repository.find params[:post_id]
 
-          status 200, {rate_avg: post.rate_avg}
+          status 200, {rate_avg: post.rate_avg}.to_json
         end
       end
     end

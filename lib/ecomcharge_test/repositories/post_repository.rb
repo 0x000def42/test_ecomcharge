@@ -8,6 +8,10 @@ class PostRepository < Hanami::Repository
     aggregate(:user).limit(number).order { rate_avg.desc }.map_to(Post).to_a
   end
 
+  def count
+    posts.count
+  end
+
   def create_with_user params
     user = UserRepository.new.find_or_create_by_login(params[:login])
     post_id = create(
@@ -19,7 +23,7 @@ class PostRepository < Hanami::Repository
     aggregate(:user).where(id: post_id).map_to(Post).one
   end
 
-  def intersections
+  def intersections limit
     posts.read(
       <<-SQL
         select DISTINCT p.ip, u.login
@@ -31,6 +35,7 @@ class PostRepository < Hanami::Repository
           from posts
           group by ip
           having count(distinct user_id) > 1
+          limit #{limit}
         )
       SQL
     ).map {|e| e}

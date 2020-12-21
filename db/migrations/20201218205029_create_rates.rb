@@ -3,7 +3,7 @@ Hanami::Model.migration do
     create_table :rates do
       primary_key :id
 
-      foreign_key :post_id, :posts, type: Integer, on_delete: :cascade, null: false
+      foreign_key :post_id, :posts, index: true, type: Integer, on_delete: :cascade, null: false
 
       column :value, Integer, null: false
 

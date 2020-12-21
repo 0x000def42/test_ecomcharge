@@ -20,7 +20,7 @@ module Web
               ip: params[:ip], 
               login: params[:login]
             )
-            status 200, {title: post.title, content: post.content, ip: post.ip, user: { login: post.user.login }}
+            status 200, {title: post.title, content: post.content, ip: post.ip, user: { login: post.user.login }}.to_json
           else
             status 422, params.error_messages.join("\n")
           end
