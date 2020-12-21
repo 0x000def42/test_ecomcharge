@@ -12,14 +12,15 @@ group :development do
   # See: https://guides.hanamirb.org/projects/code-reloading
   gem 'shotgun', platforms: :ruby
   gem 'hanami-webconsole'
-  gem 'faker'
 end
 
 group :test, :development do
   gem 'dotenv', '~> 2.4'
+  gem 'faker'
 end
 
 group :test do
+  gem 'factory_bot'
   gem 'rspec'
   gem 'capybara'
   gem 'database_cleaner-sequel'

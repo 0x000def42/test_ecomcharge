@@ -2,59 +2,28 @@ require_relative '../../../../apps/web/controllers/posts/top'
 
 RSpec.describe Web::Controllers::Posts::Top do
   let(:action) { Web::Controllers::Posts::Top.new }
-  let(:params) { {limit: 2} }
-
-  let(:post) {
-    -> { 
-      PostRepository.new.create_with_user(
-        title: "Some title", 
-        content: "some content", 
-        ip: "255:255:255:255", 
-        login: "somelogin"
-      ) 
-    }
-  }
+  let(:params) { { limit: 4 } }
 
   let(:seed) do
-    repo = RateRepository.new
-    posts = [post.call, post.call, post.call, post.call]
-
-    posts.each_with_index do |post, i|
-      4.times do |j|
-        repo.create(post_id: post.id, value: i + 1)
-      end
+    posts = build_list(:post, 6)
+    posts.each do |post|
+      build_list(:rate, 10, post_id: post.id)
     end
   end
 
-  let(:result) do
-    [
-      {
-        autor: {
-        login: "somelogin"
-        },
-        content: "some content",
-        id: 4,
-        ip: "255:255:255:255",
-        rate_avg: 0.4e1,
-        title: "Some title"
-      },
-      {
-        autor: {
-          login: "somelogin"
-        },
-        content: "some content",
-        id: 3,
-        ip: "255:255:255:255",
-        rate_avg: 0.3e1,
-        title: "Some title"
-      }
-    ]
+  it "is successful ordering" do
+    seed
+    response = action.call({limit: 4})
+    result = JSON.parse response[2][0]
+    array_of_avg = result.map {|res| res["rate_avg"] }
+    expect(array_of_avg).to eq(array_of_avg.sort.reverse)
+    expect(result.size).to eq(4)
   end
 
-  it "is successful" do
+  it "is successful slising" do
     seed
-    response = action.call(params)
-    expect(response[0]).to be(200)
-    expect(response[2]).to eq(result)
+    response = action.call({limit: 2})
+    result = JSON.parse response[2][0]
+    expect(result.size).to eq(2)
   end
 end

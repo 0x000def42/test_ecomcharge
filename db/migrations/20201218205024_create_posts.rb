@@ -6,7 +6,7 @@ Hanami::Model.migration do
       column :title, String, size: 128, null: false
       column :content, String, text: true, null: false
 
-      column :rate_avg, BigDecimal, index: true, null: false, default: 0
+      column :rate_avg, Float, index: true, null: false, default: 0
       column :rate_count, Integer, null: false, default: 0
       column :rate_sum, Integer, null: false, default: 0
       column :ip, String, index: true, null: false, size: 39

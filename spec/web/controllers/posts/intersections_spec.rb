@@ -4,26 +4,26 @@ RSpec.describe Web::Controllers::Posts::Intersections do
   let(:action) { Web::Controllers::Posts::Intersections.new }
   let(:params) { Hash[] }
   let(:seed) do
-    repo = PostRepository.new
-    repo.create_with_user(login: 'login1', title: 'Title1', content: 'Content1', ip: '255.255.255.0')
-    repo.create_with_user(login: 'login1', title: 'Title1', content: 'Content1', ip: '0.255.255.0')
-    repo.create_with_user(login: 'login2', title: 'Title1', content: 'Content1', ip: '0.255.255.0')
-    repo.create_with_user(login: 'login2', title: 'Title1', content: 'Content1', ip: '255.255.255.0')
-    repo.create_with_user(login: 'login3', title: 'Title1', content: 'Content1', ip: '255.0.255.0')
-    repo.create_with_user(login: 'login3', title: 'Title1', content: 'Content1', ip: '255.0.255.0')
-  end
+    # Create common post
+    build(:post)
 
-  let(:result) do
-    [
-      {:ip=>"0.255.255.0", :logins=>["login1", "login2"]},
-      {:ip=>"255.255.255.0", :logins=>["login1", "login2"]}
-    ]
+    # Create four posts with pair of intersection ips and logins
+    user_ids = build_list(:user, 2).map(&:id)
+    post_ips = build_list(:post_ip, 2)
+    
+    user_ids.each do |user_id|
+      post_ips.each do |post_ip|
+        build(:post, user_id: user_id, ip: post_ip)
+      end
+    end
+
   end
 
   it "is successful" do
     seed
     response = action.call(params)
-    expect(response[0]).to be(200)
-    expect(response[2]).to eq(result)
+    result = JSON.parse response[2][0]
+    expect(result.size).to be(2)
+    expect(result[0]["logins"].size).to eq(2)
   end
 end
