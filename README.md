@@ -1,33 +1,22 @@
 # Ecomcharge Test
 
-Welcome to your new Hanami project!
+It's my implementation of ecomcharge.com test task.
 
-## Setup
+It's web api on default hanami setup.
 
-How to run tests:
+How to setup:
 
-```
-% bundle exec rake
-```
+Requirements: `ruby <= 2.5, bundler, installed postgres`
 
-How to run the development console:
-
-```
-% bundle exec hanami console
-```
-
-How to run the development server:
-
-```
-% bundle exec hanami server
-```
-
-How to prepare (create and migrate) DB for `development` and `test` environments:
-
-```
-% bundle exec hanami db prepare
-
-% HANAMI_ENV=test bundle exec hanami db prepare
-```
-
-Explore Hanami [guides](https://guides.hanamirb.org/), [API docs](http://docs.hanamirb.org/1.3.3/), or jump in [chat](http://chat.hanamirb.org) for help. Enjoy! 🌸
+1. Clone it `git@github.com:0x000def42/test_ecomcharge.git`
+2. Open dir `cd test_ecomcharge`
+3. Run `bundle install`
+4. Change `.env.development` and `.env.test` on you postgres creds
+5. Run `HANAMI_ENV=test hanami db prepare`
+6. Run `rspec`
+7. Run `hanami db prepare`
+8. Run `rake seed`
+9. Run `rake seed_rates`
+10. Run `unicorn`
+11. Open another console tab
+12. Run performance tests `rake perf`

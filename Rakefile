@@ -8,6 +8,10 @@ begin
 rescue LoadError
 end
 
+task :perf do
+  sh 'rspec spec/performance_tests.rb'
+end
+
 task seed: :environment do
   warn_level = $VERBOSE
   $VERBOSE = nil

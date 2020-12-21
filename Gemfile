@@ -6,6 +6,7 @@ gem 'hanami-model', '~> 1.3'
 
 gem 'pg'
 gem 'ruby-progressbar'
+gem 'unicorn'
 
 group :development do
   # Code reloading
@@ -20,6 +21,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'rest-client'
+  gem 'rspec-benchmark'
   gem 'factory_bot'
   gem 'rspec'
   gem 'capybara'
