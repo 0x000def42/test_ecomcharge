@@ -11,7 +11,7 @@ module Web
         end
 
         def call(params)
-          result = PostRepository.new.intersections params[:limit] || 10
+          result = PostRepository.new.intersections params[:limit]
           status 200, result.to_json
         end
       end

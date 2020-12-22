@@ -14,13 +14,13 @@ module Web
           result = PostRepository.new.top params[:limit]
           res = result.map do |post|
             {
-              id: post.id, 
-              title: post.title, 
-              content: post.content, 
-              ip: post.ip,
-              rate_avg: post.rate_avg,
+              id: post[:id], 
+              title: post[:title], 
+              content: post[:content], 
+              ip: post[:ip],
+              rate_avg: post[:rate_avg],
               autor: {
-                login: post.user.login
+                login: post[:login]
               }
             } 
           end

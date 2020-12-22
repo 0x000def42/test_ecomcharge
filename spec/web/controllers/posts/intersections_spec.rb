@@ -2,7 +2,7 @@ require_relative '../../../../apps/web/controllers/posts/intersections'
 
 RSpec.describe Web::Controllers::Posts::Intersections do
   let(:action) { Web::Controllers::Posts::Intersections.new }
-  let(:params) { Hash[] }
+  let(:params) { {limit: 10} }
   let(:seed) do
     # Create common post
     build(:post)

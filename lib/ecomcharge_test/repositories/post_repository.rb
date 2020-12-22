@@ -5,7 +5,15 @@ class PostRepository < Hanami::Repository
   end
 
   def top number
-    aggregate(:user).limit(number).order { rate_avg.desc }.map_to(Post).to_a
+    posts.read(
+      <<-SQL
+        select p.*, u.login as login from posts as p
+        join users as u
+        on u.id = p.user_id
+        order by rate_avg desc
+        limit #{number}
+      SQL
+    ).map {|e| e}
   end
 
   def count
@@ -26,16 +34,14 @@ class PostRepository < Hanami::Repository
   def intersections limit
     posts.read(
       <<-SQL
-        select DISTINCT p.ip, u.login
-        from posts as p
+        select i.ip, u.login from intersections as i
         join users as u
-        on u.id = p.user_id
+        on u.id = i.user_id
         where ip IN (
-          select ip
-          from posts
+          select ip from intersections as i
           group by ip
-          having count(distinct user_id) > 1
-          limit #{limit}
+          having count(*) > 1
+            limit #{limit}
         )
       SQL
     ).map {|e| e}
